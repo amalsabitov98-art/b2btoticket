@@ -958,6 +958,12 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
         wa.download = outName;
         win.document.body.appendChild(wa);
         wa.click();
+        // The popup's only job was to trigger the save dialog outside the
+        // sandbox restrictions -- close it right after so it doesn't linger
+        // as a stray blank tab. The download itself keeps running.
+        setTimeout(function () {
+          try { win.close(); } catch (e) { /* ignore */ }
+        }, 400);
       } else {
         var a = document.createElement("a");
         a.href = url;
