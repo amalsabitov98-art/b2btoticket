@@ -6,63 +6,30 @@
 <title>Manifest Desk — Pax Data Converter</title>
 <style>
   :root {
-    --bg: #f3f1ea;
-    --surface: #ffffff;
-    --surface-alt: #eae5d7;
-    --ink: #201f1c;
-    --ink-dim: #6c6656;
-    --ink-faint: #948d79;
-    --accent: #1f4d3f;
-    --accent-ink: #f3f1ea;
-    --accent-soft: #dde7e0;
-    --line: #d9d2bf;
-    --warn: #93501e;
-    --warn-soft: #f1e2cc;
-    --danger: #9c3b34;
-    --danger-soft: #f3ddd9;
-    --shadow: 0 1px 2px rgba(32, 31, 28, 0.06), 0 8px 24px -12px rgba(32, 31, 28, 0.18);
-    --radius: 10px;
+    --bg: #0a0a0a;
+    --surface: #141412;
+    --surface-alt: #1b1b18;
+    --ink: #f5f4ee;
+    --ink-dim: #a3a196;
+    --ink-faint: #6f6d63;
+    --accent: #d8ff2b;
+    --accent-ink: #0a0a0a;
+    --accent-soft: #23260c;
+    --violet: #8a6bff;
+    --violet-ink: #ffffff;
+    --violet-soft: #1c1832;
+    --line: #2b2a26;
+    --line-strong: #3c3a34;
+    --warn: #ffb020;
+    --warn-soft: #2c2210;
+    --danger: #ff6b5e;
+    --danger-soft: #2c1512;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 24px 48px -24px rgba(0, 0, 0, 0.7);
+    --radius: 20px;
+    --radius-sm: 12px;
     --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
-    --serif: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #15181a;
-      --surface: #1d2124;
-      --surface-alt: #262b2c;
-      --ink: #ece7d9;
-      --ink-dim: #a49d89;
-      --ink-faint: #746e5d;
-      --accent: #74c19c;
-      --accent-ink: #10201a;
-      --accent-soft: #223129;
-      --line: #34393a;
-      --warn: #dba05c;
-      --warn-soft: #34291a;
-      --danger: #e08b83;
-      --danger-soft: #362320;
-      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --bg: #15181a;
-    --surface: #1d2124;
-    --surface-alt: #262b2c;
-    --ink: #ece7d9;
-    --ink-dim: #a49d89;
-    --ink-faint: #746e5d;
-    --accent: #74c19c;
-    --accent-ink: #10201a;
-    --accent-soft: #223129;
-    --line: #34393a;
-    --warn: #dba05c;
-    --warn-soft: #34291a;
-    --danger: #e08b83;
-    --danger-soft: #362320;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
   }
 
   * { box-sizing: border-box; }
@@ -78,43 +45,66 @@
     * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   }
 
+  .topbar {
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 10px 24px;
+    text-align: center;
+  }
+
   .page {
-    max-width: 860px;
+    max-width: 880px;
     margin: 0 auto;
-    padding: 40px 24px 80px;
+    padding: 56px 24px 90px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 32px;
   }
 
   header.masthead {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 18px;
+    gap: 16px;
   }
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 7px 16px 7px 12px;
+    font-size: 12.5px;
+    color: var(--ink-dim);
+  }
+  .eyebrow-pill .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+    box-shadow: 0 0 10px 1px color-mix(in srgb, var(--accent) 70%, transparent);
   }
   h1 {
-    font-family: var(--serif);
-    font-weight: 700;
-    font-size: clamp(28px, 4vw, 38px);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(40px, 7vw, 66px);
+    line-height: 0.98;
     margin: 0;
     text-wrap: balance;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
   }
+  h1 .accent-word { color: var(--accent); }
   .tagline {
     color: var(--ink-dim);
-    font-size: 15px;
-    max-width: 62ch;
-    margin: 2px 0 0;
+    font-size: 17px;
+    max-width: 56ch;
+    margin: 0;
   }
   .privacy-note {
     font-family: var(--mono);
@@ -122,15 +112,15 @@
     color: var(--ink-faint);
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-top: 4px;
+    gap: 7px;
+    margin-top: 2px;
   }
   .privacy-note::before {
     content: "";
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--accent);
+    background: var(--violet);
     flex: none;
   }
 
@@ -139,31 +129,34 @@
     border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 24px;
+    padding: 28px;
   }
   .card-head {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
   .card-head h2 {
-    font-family: var(--serif);
-    font-size: 19px;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 22px;
     margin: 0;
     display: flex;
-    align-items: baseline;
-    gap: 10px;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: -0.01em;
   }
   .step-num {
     font-family: var(--mono);
     font-size: 12px;
-    color: var(--accent);
-    border: 1px solid var(--accent);
+    font-weight: 700;
+    color: var(--accent-ink);
+    background: var(--accent);
     border-radius: 999px;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -172,9 +165,9 @@
   .card-head .hint { font-size: 12.5px; color: var(--ink-faint); font-family: var(--mono); }
 
   .dropzone {
-    border: 1.5px dashed var(--line);
-    border-radius: var(--radius);
-    padding: 32px 20px;
+    border: 1.5px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
+    padding: 36px 20px;
     text-align: center;
     cursor: pointer;
     transition: border-color 0.15s ease, background-color 0.15s ease;
@@ -188,7 +181,7 @@
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
-  .dropzone .dz-title { font-weight: 600; font-size: 15px; }
+  .dropzone .dz-title { font-weight: 700; font-size: 16px; }
   .dropzone .dz-sub { font-size: 13px; color: var(--ink-faint); margin-top: 4px; }
   .dropzone input[type="file"] { display: none; }
 
@@ -198,12 +191,13 @@
     gap: 10px;
     background: var(--surface-alt);
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    padding: 11px 16px;
     font-family: var(--mono);
     font-size: 13px;
+    margin-top: 14px;
   }
-  .file-chip .name { font-weight: 600; overflow-wrap: anywhere; }
+  .file-chip .name { font-weight: 700; overflow-wrap: anywhere; color: var(--ink); }
   .file-chip button {
     margin-left: auto;
     background: none;
@@ -221,38 +215,39 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
-    margin-top: 16px;
+    margin-top: 18px;
   }
   @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
   label.field {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    font-size: 12.5px;
+    gap: 7px;
+    font-size: 12px;
     color: var(--ink-dim);
     font-family: var(--mono);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
   }
   input[type="date"], input[type="text"] {
     font-family: var(--sans);
     font-size: 14px;
     color: var(--ink);
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    padding: 9px 10px;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    padding: 10px 12px;
     text-transform: none;
     letter-spacing: normal;
+    color-scheme: dark;
   }
   input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
   .btn {
     font-family: var(--sans);
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 7px;
-    padding: 11px 20px;
+    font-size: 14.5px;
+    font-weight: 800;
+    border-radius: 999px;
+    padding: 13px 26px;
     border: 1px solid transparent;
     cursor: pointer;
     display: inline-flex;
@@ -260,16 +255,16 @@
     gap: 8px;
   }
   .btn-primary { background: var(--accent); color: var(--accent-ink); }
-  .btn-primary:hover { filter: brightness(1.06); }
-  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; filter: none; }
-  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
-  .btn-ghost:hover { background: var(--surface-alt); }
+  .btn-primary:hover { filter: brightness(1.08); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; filter: none; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .btn-ghost:hover { background: var(--surface-alt); border-color: var(--ink-dim); }
 
-  .actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; align-items: center; }
+  .actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; align-items: center; }
 
   .manual-link {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 12px;
     font-family: var(--mono);
     font-size: 12px;
     color: var(--ink-faint);
@@ -278,8 +273,8 @@
   .manual-link:hover { color: var(--accent); }
 
   .msg {
-    border-radius: 8px;
-    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    padding: 13px 16px;
     font-size: 13.5px;
     display: flex;
     gap: 10px;
@@ -290,77 +285,79 @@
 
   .stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
-    gap: 10px;
-    margin-bottom: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 2px;
+    margin-bottom: 22px;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
   }
   .stat {
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 12px 14px;
-    background: var(--surface-alt);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 16px 18px;
+    background: var(--surface);
   }
   .stat .n {
-    font-family: var(--mono);
+    font-family: var(--display);
     font-variant-numeric: tabular-nums;
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 900;
     display: block;
-    line-height: 1.1;
+    line-height: 1;
+    letter-spacing: -0.01em;
   }
   .stat .l {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--ink-faint);
-    margin-top: 3px;
+    margin-top: 6px;
     display: block;
   }
-  .stat.accent { border-color: var(--accent); }
   .stat.accent .n { color: var(--accent); }
-  .stat.flag .n { color: var(--warn); }
+  .stat.flag .n { color: var(--violet); }
 
   .table-wrap {
     overflow-x: auto;
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
   }
   table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-family: var(--mono); }
   thead th {
     position: sticky; top: 0;
     background: var(--surface-alt);
     text-align: left;
-    padding: 8px 10px;
-    font-weight: 600;
+    padding: 9px 12px;
+    font-weight: 700;
     border-bottom: 1px solid var(--line);
     white-space: nowrap;
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     color: var(--ink-dim);
   }
   tbody td {
-    padding: 7px 10px;
+    padding: 8px 12px;
     border-bottom: 1px solid var(--line);
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
   }
   tbody tr:last-child td { border-bottom: none; }
-  tbody tr.flagged { background: var(--warn-soft); }
+  tbody tr.flagged { background: var(--violet-soft); }
   .pill {
     display: inline-block;
     font-family: var(--mono);
     font-size: 10.5px;
-    padding: 1px 6px;
+    padding: 2px 8px;
     border-radius: 999px;
     background: var(--accent-soft);
     color: var(--accent);
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.02em;
   }
   .pill.chd { background: var(--warn-soft); color: var(--warn); }
   .pill.inf { background: var(--danger-soft); color: var(--danger); }
-  .table-note { font-size: 12px; color: var(--ink-faint); padding: 8px 2px 0; }
+  .table-note { font-size: 12px; color: var(--ink-faint); padding: 10px 2px 0; }
 
   details.rules {
     background: transparent;
@@ -370,13 +367,13 @@
     font-family: var(--mono);
     font-size: 12.5px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--ink-dim);
     padding: 4px 0;
   }
-  details.rules[open] summary { color: var(--ink); }
+  details.rules[open] summary { color: var(--accent); }
   .rules-body {
-    margin-top: 12px;
+    margin-top: 14px;
     display: grid;
     gap: 8px;
     font-size: 13.5px;
@@ -384,12 +381,12 @@
   }
   .rules-body .rule {
     display: grid;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 170px 1fr;
     gap: 10px;
-    padding: 8px 0;
+    padding: 10px 0;
     border-top: 1px solid var(--line);
   }
-  .rules-body .rule dt { font-weight: 600; color: var(--ink); font-family: var(--mono); font-size: 12px; }
+  .rules-body .rule dt { font-weight: 700; color: var(--ink); font-family: var(--mono); font-size: 12px; }
   .rules-body .rule dd { margin: 0; }
 
   footer.foot {
@@ -404,12 +401,13 @@
 <body>
 
 
+<div class="topbar">Работает офлайн в браузере &middot; данные пассажиров никуда не отправляются</div>
+
 <div class="page">
   <header class="masthead">
-    <span class="eyebrow">b2btoticket &middot; internal tool</span>
-    <h1>Manifest Desk</h1>
+    <span class="eyebrow-pill"><span class="dot"></span>b2btoticket &middot; внутренний инструмент</span>
+    <h1>Manifest <span class="accent-word">Desk</span></h1>
     <p class="tagline">Загрузи список пассажиров от партнёра (№, ФИО, дата рождения, паспорт) — получи готовый файл в формате Pax Data.</p>
-    <span class="privacy-note">Всё считается в браузере — файл не покидает это устройство</span>
   </header>
 
   <section class="card" id="upload-card">
@@ -473,7 +471,7 @@
       <div class="rule"><dt>Pax Type</dt><dd>Возраст на дату поездки: &lt; 2 лет &mdash; INF, 2&ndash;11 &mdash; CHD, 12+ &mdash; ADT.</dd></div>
       <div class="rule"><dt>Title</dt><dd>mr / mrs для ADT, mstr / miss для CHD и INF &mdash; по полу.</dd></div>
       <div class="rule"><dt>Имя / Фамилия</dt><dd>Исходное &laquo;ФАМИЛИЯ ИМЯ&raquo; меняется местами на First / Last.</dd></div>
-      <div class="rule"><dt>Пол</dt><dd>Эвристика: женский, если имя или фамилия оканчивается на &laquo;-a&raquo;. Не 100% точно &mdash; строки с этим отмечены жёлтым, проверь вручную.</dd></div>
+      <div class="rule"><dt>Пол</dt><dd>Эвристика: женский, если имя или фамилия оканчивается на &laquo;-a&raquo;. Не 100% точно &mdash; строки с этим отмечены фиолетовым, проверь вручную.</dd></div>
       <div class="rule"><dt>Гражданство и паспорт</dt><dd>Nationality / Passport Issued Country / Passport Nationality проставляются одинаково (по умолчанию Uzbekistan, поле выше редактируется).</dd></div>
       <div class="rule"><dt>Пустые поля</dt><dd>Traveling With, Mobile, Email, ID Number, Passport Issued &mdash; в источнике их нет, остаются пустыми.</dd></div>
     </dl>
