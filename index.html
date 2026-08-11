@@ -357,7 +357,27 @@
   }
   .pill.chd { background: var(--warn-soft); color: var(--warn); }
   .pill.inf { background: var(--danger-soft); color: var(--danger); }
-  .table-note { font-size: 12px; color: var(--ink-faint); padding: 10px 2px 0; }
+  .table-note {
+    font-size: 12px;
+    color: var(--ink-faint);
+    padding: 10px 2px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .link-btn:hover { color: var(--ink); }
 
   details.rules {
     background: transparent;
@@ -765,14 +785,18 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
     });
   }
 
+  var PREVIEW_LIMIT = 20;
+  var tableShowAll = false;
+
   function renderTable(rows) {
     var cols = ["Seq", "Type", "Title", "First", "Last", "Gender", "DOB", "Passport", "Expiry"];
     var thead = tableEl.querySelector("thead");
     var tbody = tableEl.querySelector("tbody");
     thead.innerHTML = "<tr>" + cols.map(function (c) { return "<th>" + c + "</th>"; }).join("") + "</tr>";
     tbody.innerHTML = "";
-    var previewCount = Math.min(rows.length, 20);
-    for (var i = 0; i < previewCount; i++) {
+
+    var visibleCount = tableShowAll ? rows.length : Math.min(rows.length, PREVIEW_LIMIT);
+    for (var i = 0; i < visibleCount; i++) {
       var r = rows[i];
       var tr = document.createElement("tr");
       if (r.genderFallback) tr.className = "flagged";
@@ -789,9 +813,31 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
         "<td>" + fmtDate(r.expiry) + "</td>";
       tbody.appendChild(tr);
     }
-    tableNote.textContent = rows.length > previewCount
-      ? "Показаны первые " + previewCount + " из " + rows.length + " строк. Полный список — в скачанном файле."
-      : "Показаны все " + rows.length + " строк.";
+
+    tableEl.parentElement.style.maxHeight = tableShowAll && rows.length > PREVIEW_LIMIT ? "480px" : "";
+    tableEl.parentElement.style.overflowY = tableShowAll && rows.length > PREVIEW_LIMIT ? "auto" : "";
+
+    tableNote.innerHTML = "";
+    var noteText = document.createElement("span");
+    if (rows.length > PREVIEW_LIMIT) {
+      noteText.textContent = tableShowAll
+        ? "Показаны все " + rows.length + " строк."
+        : "Показаны первые " + visibleCount + " из " + rows.length + " строк.";
+      var toggleBtn = document.createElement("button");
+      toggleBtn.type = "button";
+      toggleBtn.className = "link-btn";
+      toggleBtn.textContent = tableShowAll ? "Свернуть" : "Показать все " + rows.length;
+      toggleBtn.addEventListener("click", function () {
+        tableShowAll = !tableShowAll;
+        renderTable(state.rows);
+      });
+      tableNote.appendChild(noteText);
+      tableNote.appendChild(document.createTextNode(" "));
+      tableNote.appendChild(toggleBtn);
+    } else {
+      noteText.textContent = "Показаны все " + rows.length + " строк.";
+      tableNote.appendChild(noteText);
+    }
   }
 
   function buildOutputWorkbook(rows) {
@@ -824,6 +870,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
   // ---- UI wiring ----
   function resetToUpload() {
     state = { file: null, rows: null, travelDate: null };
+    tableShowAll = false;
     fileInput.value = "";
     fileChipHolder.innerHTML = "";
     dateRow.style.display = "none";
@@ -907,6 +954,7 @@ break;case"<bookViews":;case"<bookViews>":;case"</bookViews>":break;case"<workbo
         }
         var rows = buildPaxRows(inputRows, travelDate, nationality);
         state.rows = rows;
+        tableShowAll = false;
 
         resultFilename.textContent = state.file.name.replace(/\.xlsx$/i, "") + "_pax_data.xlsx";
         renderStats(rows);
