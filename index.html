@@ -409,13 +409,29 @@
   }
   .credit-created {
     color: #ff3232;
-    animation: credit-glow 1.3s ease-in-out infinite alternate;
+    animation: credit-glow-red 1.3s ease-in-out infinite alternate;
   }
-  .credit-amal { color: #ffffff; }
-  .credit-sabitov { color: #ffe000; }
-  @keyframes credit-glow {
+  .credit-amal {
+    color: #ffffff;
+    animation: credit-glow-white 1.3s ease-in-out infinite alternate;
+    animation-delay: 0.15s;
+  }
+  .credit-sabitov {
+    color: #ffe000;
+    animation: credit-glow-yellow 1.3s ease-in-out infinite alternate;
+    animation-delay: 0.3s;
+  }
+  @keyframes credit-glow-red {
     from { text-shadow: 0 0 6px rgba(255, 50, 50, 0.35), 0 0 14px rgba(255, 50, 50, 0.2); }
     to   { text-shadow: 0 0 20px rgba(255, 50, 50, 0.95), 0 0 40px rgba(255, 50, 50, 0.65); }
+  }
+  @keyframes credit-glow-white {
+    from { text-shadow: 0 0 6px rgba(255, 255, 255, 0.35), 0 0 14px rgba(255, 255, 255, 0.2); }
+    to   { text-shadow: 0 0 20px rgba(255, 255, 255, 0.95), 0 0 40px rgba(255, 255, 255, 0.6); }
+  }
+  @keyframes credit-glow-yellow {
+    from { text-shadow: 0 0 6px rgba(255, 224, 0, 0.35), 0 0 14px rgba(255, 224, 0, 0.2); }
+    to   { text-shadow: 0 0 20px rgba(255, 224, 0, 0.95), 0 0 40px rgba(255, 224, 0, 0.65); }
   }
 </style>
 </head>
