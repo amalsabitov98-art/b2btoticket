@@ -391,11 +391,32 @@
 
   footer.foot {
     text-align: center;
-    font-size: 12px;
-    color: var(--ink-faint);
-    font-family: var(--mono);
+    padding-top: 8px;
   }
   footer.foot a { color: inherit; }
+
+  .credit {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35em;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(30px, 6vw, 42px);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .credit-created {
+    color: #ff3232;
+    animation: credit-glow 1.3s ease-in-out infinite alternate;
+  }
+  .credit-amal { color: #ffffff; }
+  .credit-sabitov { color: #ffe000; }
+  @keyframes credit-glow {
+    from { text-shadow: 0 0 6px rgba(255, 50, 50, 0.35), 0 0 14px rgba(255, 50, 50, 0.2); }
+    to   { text-shadow: 0 0 20px rgba(255, 50, 50, 0.95), 0 0 40px rgba(255, 50, 50, 0.65); }
+  }
 </style>
 </head>
 <body>
@@ -477,7 +498,11 @@
     </dl>
   </details>
 
-  <footer class="foot">Создано Amal</footer>
+  <footer class="foot">
+    <span class="credit">
+      <span class="credit-created">Created</span><span class="credit-amal">Amal</span><span class="credit-sabitov">Sabitov</span>
+    </span>
+  </footer>
 </div>
 
 <script>
